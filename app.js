@@ -59,21 +59,21 @@ app.use(function (req, res, next) {
 });
 
 // token 设置
-app.use(expressJWT({
-    algorithms: ['HS256'],
-    secret: CONSTANT.SECRET_KEY
-  }).unless({
-    // 除了这个地址，其他的URL都需要验证
-    path: ['/getToken',
-      '/getToken/adminLogin',
-      '/appVersion/upload',
-      '/appVersion/download',
-      /^\/public\/.*/,
-      /^\/static\/.*/,
-      /^\/user_disk\/.*/,
-      /^\/user_video\/.*/
-    ]
-  }));
+// app.use(expressJWT({
+//     algorithms: ['HS256'],
+//     secret: CONSTANT.SECRET_KEY
+//   }).unless({
+//     // 除了这个地址，其他的URL都需要验证
+//     path: ['/getToken',
+//       '/getToken/adminLogin',
+//       '/appVersion/upload',
+//       '/appVersion/download',
+//       /^\/public\/.*/,
+//       /^\/static\/.*/,
+//       /^\/user_disk\/.*/,
+//       /^\/user_video\/.*/
+//     ]
+//   }));
 // -------------自定义设置-----------------
 
 
