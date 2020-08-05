@@ -2,16 +2,22 @@
  * @Author: houxiaoling 
  * @Date: 2020-07-29 17:16:42 
  * @Last Modified by: houxiaoling
- * @Last Modified time: 2020-07-30 10:21:47
+ * @Last Modified time: 2020-08-05 10:25:52
  * @Description:用户相关请求
  */
 var mysql = require('mysql');
 var conf = require('../conf/db');
-var sql = require('./userSqlMapping');
 var logger = require('../common/logger');
 // 使用连接池，提升性能
 var pool = mysql.createPool(conf.mysql);
 var common = require('./common');
+var sql = {
+    insert: 'insert into user(uid, name, password, role, sex) VALUES(?,?,?,?,?)',
+    update: 'update user set name=?, sex=?, password=? where uid=?',
+    delete: 'delete from user where FIND_IN_SET(uid,?)',
+    queryById: 'select * from user where uid=?',
+    queryAll: 'select * from user'
+}
 
 module.exports = {
   add: function (req, res, next) {

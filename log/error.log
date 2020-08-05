@@ -1,1 +1,5 @@
 2020-08-03T02:54:27.763Z error: ER_NO_SUCH_TABLE: Table 'blog.t_user' doesn't exist
+2020-08-05T03:57:19.024Z error: ER_PARSE_ERROR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '?' at line 1
+2020-08-05T06:12:25.357Z error: ER_PARSE_ERROR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '?' at line 1
+2020-08-05T06:14:33.984Z error: ER_PARSE_ERROR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '?' at line 1
+2020-08-05T06:38:13.437Z error: ER_PARSE_ERROR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '?' at line 1
