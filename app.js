@@ -14,6 +14,8 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var articleRouter = require('./routes/article');
 var whisperRouter = require('./routes/whisper');
+var leacotsRouter = require('./routes/leacots');
+
 
 
 var app = express();
@@ -111,6 +113,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/articles', articleRouter);
 app.use('/whispers', whisperRouter);
+app.use('/leacots', leacotsRouter);
 
 
 // catch 404 and forward to error handler
