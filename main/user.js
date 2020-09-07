@@ -2,7 +2,7 @@
  * @Author: houxiaoling 
  * @Date: 2020-07-29 17:16:42 
  * @Last Modified by: houxiaoling
- * @Last Modified time: 2020-08-05 10:25:52
+ * @Last Modified time: 2020-09-07 17:52:39
  * @Description:用户相关请求
  */
 var mysql = require('mysql');
@@ -129,5 +129,5 @@ module.exports = {
         connection.release();
       });
     });
-  }
+  },
 };

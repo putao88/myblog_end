@@ -2,10 +2,15 @@
 create table if not exists user(
   uid varchar(16) primary key,
   name varchar(16),
+  realName varchar(200),
   password varchar(16),
-  role int,
-  sex varchar(16)
+  role varchar(16),
+  avatar varchar(200),
+  token varchar(200)
 ) default charset = utf8;
+
+insert into system values('1','putao', '葡萄', '111111', 'admin', 'xxx','');
+
 
 create table if not exists article(
   id varchar(16) primary key,

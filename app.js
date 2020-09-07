@@ -15,6 +15,7 @@ var usersRouter = require('./routes/users');
 var articleRouter = require('./routes/article');
 var whisperRouter = require('./routes/whisper');
 var leacotsRouter = require('./routes/leacots');
+var loginRouter = require('./routes/login');
 
 
 
@@ -110,10 +111,12 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/articles', articleRouter);
-app.use('/whispers', whisperRouter);
-app.use('/leacots', leacotsRouter);
+app.use('/users', usersRouter);//用户
+app.use('/articles', articleRouter);//文章
+app.use('/whispers', whisperRouter);//微语
+app.use('/leacots', leacotsRouter);//留言
+app.use('/login', loginRouter);//登录
+
 
 
 // catch 404 and forward to error handler

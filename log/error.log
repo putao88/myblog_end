@@ -3,3 +3,5 @@
 2020-08-05T06:12:25.357Z error: ER_PARSE_ERROR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '?' at line 1
 2020-08-05T06:14:33.984Z error: ER_PARSE_ERROR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '?' at line 1
 2020-08-05T06:38:13.437Z error: ER_PARSE_ERROR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '?' at line 1
+2020-08-13T08:38:30.229Z error: ER_ACCESS_DENIED_ERROR: Access denied for user 'putao88'@'116.6.99.221' (using password: YES)
+2020-08-13T08:39:42.486Z error: ER_ACCESS_DENIED_ERROR: Access denied for user 'putao88'@'116.6.99.221' (using password: YES)

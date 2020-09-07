@@ -2,7 +2,7 @@
  * @Author: houxiaoling 
  * @Date: 2020-08-05 10:18:29 
  * @Last Modified by: houxiaoling
- * @Last Modified time: 2020-08-05 14:16:19
+ * @Last Modified time: 2020-09-07 16:27:16
  * @Description:文章相关请求 
  */
 
@@ -42,8 +42,7 @@ module.exports = {
         });
     },
     queryByType: function (req, res, next) {
-        console.log(req.body)
-        var param = JSON.parse(req.body.info); // 为了拼凑正确的sql语句，这里要转下整数
+        var param = JSON.parse(req.body.info);
         let type = param.type
         pool.getConnection(function (err, connection) {
             if (err) {
