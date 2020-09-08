@@ -39,4 +39,8 @@ router.post('/updateUser', function (req, res, next) {
   user.update(req, res, next);
 });
 
+router.post('/getUserInfo', function (req, res, next) {
+    user.queryByToken(req, res, next);
+  });
+
 module.exports = router;

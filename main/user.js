@@ -2,7 +2,7 @@
  * @Author: houxiaoling 
  * @Date: 2020-07-29 17:16:42 
  * @Last Modified by: houxiaoling
- * @Last Modified time: 2020-09-07 17:52:39
+ * @Last Modified time: 2020-09-08 15:29:15
  * @Description:用户相关请求
  */
 var mysql = require('mysql');
@@ -16,6 +16,7 @@ var sql = {
     update: 'update user set name=?, sex=?, password=? where uid=?',
     delete: 'delete from user where FIND_IN_SET(uid,?)',
     queryById: 'select * from user where uid=?',
+    queryByToken: 'select * from user where token=?',
     queryAll: 'select * from user'
 }
 
@@ -89,12 +90,33 @@ module.exports = {
     });
   },
   queryById: function (req, res, next) {
-    var uid = req.query.uid; // 为了拼凑正确的sql语句，这里要转下整数
+    var uid = req.query.uid;
     pool.getConnection(function (err, connection) {
       if (err) {
         logger.error(err);
       }
       connection.query(sql.queryById, uid, function (err, result) {
+        var ret;
+        if (err) {
+          logger.error(err);
+        } else {
+          ret = {
+            code: 200,
+            data: result
+          };
+        }
+        common.jsonWrite(res, ret);
+        connection.release();
+      });
+    });
+  },
+  queryByToken: function (req, res, next) {
+    var token = req.body.token; 
+    pool.getConnection(function (err, connection) {
+      if (err) {
+        logger.error(err);
+      }
+      connection.query(sql.queryByToken, token, function (err, result) {
         var ret;
         if (err) {
           logger.error(err);
