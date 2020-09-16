@@ -2,7 +2,7 @@
  * @Author: houxiaoling 
  * @Date: 2020-07-29 17:16:42 
  * @Last Modified by: houxiaoling
- * @Last Modified time: 2020-09-08 15:29:15
+ * @Last Modified time: 2020-09-16 17:11:17
  * @Description:用户相关请求
  */
 var mysql = require('mysql');
@@ -121,10 +121,19 @@ module.exports = {
         if (err) {
           logger.error(err);
         } else {
-          ret = {
-            code: 200,
-            data: result
-          };
+            if (result.length > 0) {
+                ret = {
+                    code: 200,
+                    data: result
+                };
+            } else {
+                ret = {
+                    code: 514,
+                    data: [],
+                    msg:'用户身份未识别！'
+                };
+            }
+
         }
         common.jsonWrite(res, ret);
         connection.release();

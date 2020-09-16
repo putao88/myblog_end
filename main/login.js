@@ -2,7 +2,7 @@
  * @Author: houxiaoling 
  * @Date: 2020-09-07 11:23:56 
  * @Last Modified by: houxiaoling
- * @Last Modified time: 2020-09-08 14:20:20
+ * @Last Modified time: 2020-09-16 17:08:28
  */
 var mysql = require('mysql');
 var conf = require('../conf/db');
@@ -15,7 +15,8 @@ var common = require('./common');
 
 var sql = {
     qureyByUsername: 'select * from user where name=?',
-    updateToken: 'update user set token=? where uid=?'
+    updateToken: 'update user set token=? where uid=?',
+    delToken: 'update user set token=? where token=?',
 }
 
 module.exports = {
@@ -49,7 +50,7 @@ module.exports = {
                         };
                     } else {
                         ret = {
-                            code: 200,
+                            code: 508,
                             data: [],
                             success: false,
                             msg: '请输入正确的用户名或账户！'
@@ -57,7 +58,7 @@ module.exports = {
                     }
                 } else {
                     ret = {
-                        code: 200,
+                        code: 508,
                         data: [],
                         success: false,
                         msg: '请输入正确的用户名！'
@@ -67,5 +68,28 @@ module.exports = {
                 connection.release();
             });
         });
-    }
+    },
+    logout: function (req, res, next) {
+        var token = req.body.token; 
+        pool.getConnection(function (err, connection) {
+          if (err) {
+            logger.error(err);
+          }
+          connection.query(sql.delToken, ['',token], function (err, result) {
+            var ret;
+            if (err) {
+              logger.error(err);
+            } else {
+              ret = {
+                code: 200,
+                data: [],
+                success: true,
+                msg: '登出成功！'
+              };
+            }
+            common.jsonWrite(res, ret);
+            connection.release();
+          });
+        });
+      },
 }

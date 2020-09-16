@@ -2,7 +2,7 @@
  * @Author: houxiaoling 
  * @Date: 2020-09-07 11:24:04 
  * @Last Modified by: houxiaoling
- * @Last Modified time: 2020-09-08 11:07:15
+ * @Last Modified time: 2020-09-15 15:45:48
  */
 var express = require('express');
 var router = express.Router();
@@ -16,6 +16,11 @@ router.post('/adminLogin', function (req, res, next) {
     } else {
         login.adminLogin(req, res, next);
     }
+});
+
+// 登出系统
+router.post('/logout', function (req, res, next) {
+    login.logout(req, res, next);
 });
 
 module.exports = router;
