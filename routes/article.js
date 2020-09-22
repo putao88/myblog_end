@@ -2,7 +2,7 @@
  * @Author: houxiaoling 
  * @Date: 2020-08-05 10:16:07 
  * @Last Modified by: houxiaoling
- * @Last Modified time: 2020-09-18 16:35:31
+ * @Last Modified time: 2020-09-22 18:00:51
  * @Description:文章相关请求
  */
 var express = require('express');
@@ -31,6 +31,14 @@ router.post('/addArticle', function (req, res, next) {
     article.add(req, res, next);
 });
 
+router.post('/updateArtcle', function (req, res, next) {
+    article.updateArtcle(req, res, next);
+});
+
+router.post('/deleteArtcle', function (req, res, next) {
+    article.deleteArtcle(req, res, next);
+});
+
 router.get('/queryArticleClassify', function (req, res, next) {
     article.queryArticleClassify(req, res, next);
 });
@@ -39,6 +47,9 @@ router.post('/addArtcleClassify', function (req, res, next) {
     article.addArtcleClassify(req, res, next);
 });
 
+router.post('/updateArtcleClassify', function (req, res, next) {
+    article.updateArtcleClassify(req, res, next);
+});
 router.post('/deleteArtcleClassify', function (req, res, next) {
     article.deleteArtcleClassify(req, res, next);
 });

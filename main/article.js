@@ -2,7 +2,7 @@
  * @Author: houxiaoling 
  * @Date: 2020-08-05 10:18:29 
  * @Last Modified by: houxiaoling
- * @Last Modified time: 2020-09-18 16:36:59
+ * @Last Modified time: 2020-09-22 18:07:03
  * @Description:文章相关请求 
  */
 
@@ -22,14 +22,18 @@ var sql = {
     queryById: 'select * from article where id=?',
     queryByType: 'select * from article where type=?',
     queryAll: 'select * from article',
-    insertArticle: 'insert into article(id, type, title, content, time) VALUES(?,?,?,?,?)',
-    queryAllArticleClassify:'select * from article_classify',
+    insertArticle: 'insert into article set type=?, title = ?, content, time) VALUES(?,?,?,?,?)',
+    updateArticle: 'update article set type=?, title=?, content=?, time=? where id=?',
+    deleteArtcle: 'delete from article where FIND_IN_SET(id,?)',
+    queryAllArticleClassify:'select * , false as isArticle from article_classify union select id, type, title, time, true as isArticle from article ',
     insertArticleClassify: 'insert into article_classify(father_id, name, time) VALUES(?,?,?)',
     deleteArtcleClassify: 'delete from article_classify where FIND_IN_SET(id,?)',
+    updateArticleClassify: 'update article_classify set name=?, time=? where id=?',
 }
 module.exports = {
     queryById: function (req, res, next) {
-        var id = req.query.id; // 为了拼凑正确的sql语句，这里要转下整数
+        var param = JSON.parse(req.body.info);
+        let id = param.id
         pool.getConnection(function (err, connection) {
             if (err) {
                 logger.error(err);
@@ -115,8 +119,53 @@ module.exports = {
             connection.release();
           });
         });
-      },
-      deleteArtcleClassify: function (req, res, next) {
+    },
+    updateArtcle: function (req, res, next) {
+        pool.getConnection(function (err, connection) {
+          if (err) {
+            logger.error(err);
+            return;
+          }
+          var param = JSON.parse(req.body.info)
+          var time = Date.getTime()
+          // 建立连接，向表中插入值
+          connection.query(sql.updateArticle, [param.type, param.title, param.content, time, param.id], function (err, result) {
+            if (err) {
+              logger.error(err);
+            } else {
+              result = {
+                code: 200,
+                msg: '更新成功'
+              };
+            }
+            // 以json形式，把操作结果返回给前台页面
+            common.jsonWrite(res, result);
+            // 释放连接
+            connection.release();
+          });
+        });
+    },
+    deleteArtcle: function (req, res, next) {
+        pool.getConnection(function (err, connection) {
+          if (err) {
+            logger.error(err);
+          }
+          var param = JSON.parse(req.body.info)
+          connection.query(sql.deleteArtcle, param.id, function (err, result) {
+            if (err) {
+              logger.error(err);
+            } else {
+              result = {
+                code: 200,
+                msg: '删除成功'
+              };
+            }
+            common.jsonWrite(res, result);
+            connection.release();
+          });
+        });
+    },
+    deleteArtcleClassify: function (req, res, next) {
         pool.getConnection(function (err, connection) {
           if (err) {
             logger.error(err);
@@ -135,8 +184,8 @@ module.exports = {
             connection.release();
           });
         });
-      },
-      queryArticleClassify: function (req, res, next) {
+    },
+    queryArticleClassify: function (req, res, next) {
         pool.getConnection(function (err, connection) {
             if (err) {
                 logger.error(err);
@@ -180,5 +229,30 @@ module.exports = {
             connection.release();
           });
         });
-      },
+    },
+    updateArtcleClassify: function (req, res, next) {
+        pool.getConnection(function (err, connection) {
+          if (err) {
+            logger.error(err);
+            return;
+          }
+          var param = JSON.parse(req.body.info)
+          var time = Date.getTime()
+          // 建立连接，向表中插入值
+          connection.query(sql.updateArticleClassify, [param.name, time, param.id], function (err, result) {
+            if (err) {
+              logger.error(err);
+            } else {
+              result = {
+                code: 200,
+                msg: '更新成功'
+              };
+            }
+            // 以json形式，把操作结果返回给前台页面
+            common.jsonWrite(res, result);
+            // 释放连接
+            connection.release();
+          });
+        });
+    },
 }
