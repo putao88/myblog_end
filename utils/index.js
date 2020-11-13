@@ -25,9 +25,9 @@ Date.prototype.Format = function (fmt) { //author: meizz
  */
 module.exports = {
     getToday: function () {
-        return new Date().Format("yyyy-MM-dd")
+        return new Date().Format("yyyy/MM/dd")
     },
     getTime: function () {
-        return new Date().Format("yyyy-MM-dd hh:mm:ss")
+        return new Date().Format("yyyy/MM/dd hh:mm:ss")
     }
 }

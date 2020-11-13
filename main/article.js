@@ -2,7 +2,7 @@
  * @Author: houxiaoling 
  * @Date: 2020-08-05 10:18:29 
  * @Last Modified by: houxiaoling
- * @Last Modified time: 2020-09-22 18:07:03
+ * @Last Modified time: 2020-10-13 16:57:50
  * @Description:文章相关请求 
  */
 
@@ -22,7 +22,7 @@ var sql = {
     queryById: 'select * from article where id=?',
     queryByType: 'select * from article where type=?',
     queryAll: 'select * from article',
-    insertArticle: 'insert into article set type=?, title = ?, content, time) VALUES(?,?,?,?,?)',
+    insertArticle: 'insert into article(id, type, title , content, time) VALUES(?,?,?,?,?)',
     updateArticle: 'update article set type=?, title=?, content=?, time=? where id=?',
     deleteArtcle: 'delete from article where FIND_IN_SET(id,?)',
     queryAllArticleClassify:'select * , false as isArticle from article_classify union select id, type, title, time, true as isArticle from article ',
