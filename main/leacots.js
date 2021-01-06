@@ -2,7 +2,7 @@
  * @Author: houxiaoling 
  * @Date: 2020-08-05 10:18:29 
  * @Last Modified by: houxiaoling
- * @Last Modified time: 2020-11-13 17:18:46
+ * @Last Modified time: 2021-01-06 18:17:54
  * @Description:文章相关请求 
  */
 
@@ -20,7 +20,8 @@ var uuid = require('node-uuid');
 // var uidv4 = uuid.v4();
 
 var sql = {
-    queryById: 'select * from leacots where id=?',
+	queryById: 'select * from leacots where id=?',
+	queryByParentId: 'select * from leacots where father_id=?',
     queryAll: 'select * from leacots',
     add: 'insert into leacots(id, father_id, name, level, content, email, website, replyer, time) VALUES(?,?,?,?,?,?,?,?,?)',
     update:'update leacots set `status`=?, `like`=?, `comment_replys`=? where id=?',
@@ -46,7 +47,29 @@ module.exports = {
                 connection.release();
             });
         });
-    },
+	},
+	queryByParentId: function (req, res, next) {
+		var param = JSON.parse(req.body.info);
+        var father_id = param.father_id; 
+        pool.getConnection(function (err, connection) {
+            if (err) {
+                logger.error(err);
+            }
+            connection.query(sql.queryByParentId, father_id, function (err, result) {
+                var ret;
+                if (err) {
+                    logger.error(err);
+                } else {
+                    ret = {
+                        code: 200,
+                        data: result
+                    };
+                }
+                common.jsonWrite(res, ret);
+                connection.release();
+            });
+        });
+	},
     queryAll: function (req, res, next) {
         pool.getConnection(function (err, connection) {
             if (err) {
