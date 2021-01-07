@@ -2,7 +2,7 @@
  * @Author: houxiaoling 
  * @Date: 2020-08-05 10:18:29 
  * @Last Modified by: houxiaoling
- * @Last Modified time: 2020-10-13 16:57:50
+ * @Last Modified time: 2021-01-07 15:05:14
  * @Description:文章相关请求 
  */
 
@@ -15,8 +15,6 @@ var common = require('./common');
 var Date = require('../utils/index');
 
 var uuid = require('node-uuid');
-var uid = uuid.v1();
-var uidv4 = uuid.v4();
 
 var sql = {
     queryById: 'select * from article where id=?',
@@ -102,7 +100,8 @@ module.exports = {
             return;
           }
           var param = JSON.parse(req.body.info)
-          var time = Date.getTime()
+		  var time = Date.getTime()
+		  var uid = uuid.v1();
           // 建立连接，向表中插入值
           connection.query(sql.insertArticle, [uid, param.type, param.title, param.content, time], function (err, result) {
             if (err) {

@@ -2,7 +2,7 @@
  * @Author: houxiaoling 
  * @Date: 2020-08-05 10:16:07 
  * @Last Modified by: houxiaoling
- * @Last Modified time: 2020-09-07 14:53:09
+ * @Last Modified time: 2021-01-07 18:03:17
  * @Description:微语相关请求
  */
 var express = require('express');
@@ -22,6 +22,19 @@ router.get('/queryAll', function (req, res, next) {
 router.post('/queryById', function (req, res, next) {
     whisper.queryById(req, res, next);
 });
+
+router.post('/updateWhisper', function (req, res, next) {
+    whisper.updateWhisper(req, res, next);
+});
+
+router.post('/addWhisper', function (req, res, next) {
+    whisper.addWhisper(req, res, next);
+});
+
+router.post('/deleteWhisper', function (req, res, next) {
+    whisper.deleteWhisper(req, res, next);
+});
+
 
 
 
