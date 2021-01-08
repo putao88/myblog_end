@@ -2,7 +2,7 @@
  * @Author: houxiaoling 
  * @Date: 2020-08-05 10:16:07 
  * @Last Modified by: houxiaoling
- * @Last Modified time: 2020-09-22 18:00:51
+ * @Last Modified time: 2021-01-08 11:21:41
  * @Description:文章相关请求
  */
 var express = require('express');
@@ -53,5 +53,9 @@ router.post('/updateArtcleClassify', function (req, res, next) {
 router.post('/deleteArtcleClassify', function (req, res, next) {
     article.deleteArtcleClassify(req, res, next);
 });
+router.post('/getArticleByFilter', function (req, res, next) {
+    article.getArticleByFilter(req, res, next);
+});
+
 
 module.exports = router;
