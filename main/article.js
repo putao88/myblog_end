@@ -2,7 +2,7 @@
  * @Author: houxiaoling 
  * @Date: 2020-08-05 10:18:29 
  * @Last Modified by: houxiaoling
- * @Last Modified time: 2020-10-13 16:57:50
+ * @Last Modified time: 2021-01-08 12:40:32
  * @Description:文章相关请求 
  */
 
@@ -15,8 +15,6 @@ var common = require('./common');
 var Date = require('../utils/index');
 
 var uuid = require('node-uuid');
-var uid = uuid.v1();
-var uidv4 = uuid.v4();
 
 var sql = {
     queryById: 'select * from article where id=?',
@@ -28,7 +26,10 @@ var sql = {
     queryAllArticleClassify:'select * , false as isArticle from article_classify union select id, type, title, time, true as isArticle from article ',
     insertArticleClassify: 'insert into article_classify(father_id, name, time) VALUES(?,?,?)',
     deleteArtcleClassify: 'delete from article_classify where FIND_IN_SET(id,?)',
-    updateArticleClassify: 'update article_classify set name=?, time=? where id=?',
+	updateArticleClassify: 'update article_classify set name=?, time=? where id=?',
+	getArticleByReadCount:'select * from article order by read_count desc',
+	getArticleByTime:'select * from article order by time desc',
+
 }
 module.exports = {
     queryById: function (req, res, next) {
@@ -102,7 +103,8 @@ module.exports = {
             return;
           }
           var param = JSON.parse(req.body.info)
-          var time = Date.getTime()
+		  var time = Date.getTime()
+		  var uid = uuid.v1();
           // 建立连接，向表中插入值
           connection.query(sql.insertArticle, [uid, param.type, param.title, param.content, time], function (err, result) {
             if (err) {
@@ -253,6 +255,30 @@ module.exports = {
             // 释放连接
             connection.release();
           });
+        });
+	},
+	getArticleByFilter: function (req, res, next) {
+        var param = JSON.parse(req.body.info);
+		let filter = param.filter
+		let sqlStr = sql.getArticleByReadCount
+		if (filter == 'latest') sqlStr = sql.getArticleByTime
+        pool.getConnection(function (err, connection) {
+            if (err) {
+                logger.error(err);
+            }
+            connection.query(sqlStr, function (err, result) {
+                var ret;
+                if (err) {
+                    logger.error(err);
+                } else {
+                    ret = {
+                        code: 200,
+                        data: result
+                    };
+                }
+                common.jsonWrite(res, ret);
+                connection.release();
+            });
         });
     },
 }

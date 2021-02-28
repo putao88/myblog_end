@@ -2,7 +2,7 @@
  * @Author: houxiaoling 
  * @Date: 2020-08-05 10:16:07 
  * @Last Modified by: houxiaoling
- * @Last Modified time: 2020-10-21 17:46:35
+ * @Last Modified time: 2021-01-06 18:08:04
  * @Description:留言相关请求
  */
 var express = require('express');
@@ -21,6 +21,10 @@ router.get('/queryAll', function (req, res, next) {
 
 router.post('/queryById', function (req, res, next) {
     leacots.queryById(req, res, next);
+});
+
+router.post('/queryByParentId', function (req, res, next) {
+    leacots.queryByParentId(req, res, next);
 });
 
 router.post('/addLeacots', function (req, res, next) {
