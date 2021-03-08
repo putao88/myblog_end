@@ -1,0 +1,8 @@
+2021-01-07T06:49:53.011Z error: ER_DUP_ENTRY: Duplicate entry 'a57b3240-50b1-11eb-b14a-f14e565b6fdb' for key 'PRIMARY'
+2021-01-07T06:50:08.005Z error: ER_DUP_ENTRY: Duplicate entry 'a57b3240-50b1-11eb-b14a-f14e565b6fdb' for key 'PRIMARY'
+2021-01-08T03:37:35.895Z error: ER_PARSE_ERROR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'order by ('read_count') asc' at line 1
+2021-01-08T03:37:46.245Z error: ER_PARSE_ERROR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'order by ('time') asc' at line 1
+2021-01-08T03:39:07.007Z error: ER_PARSE_ERROR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'order by ('read_count') asc' at line 1
+2021-01-08T03:39:44.369Z error: ER_PARSE_ERROR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'order by 'time' asc' at line 1
+2021-01-08T04:32:08.184Z error: ER_WRONG_PARAMCOUNT_TO_NATIVE_FCT: Incorrect parameter count in the call to native function 'FIND_IN_SET'
+2021-01-08T04:32:19.245Z error: ER_WRONG_PARAMCOUNT_TO_NATIVE_FCT: Incorrect parameter count in the call to native function 'FIND_IN_SET'
