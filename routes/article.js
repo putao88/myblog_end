@@ -2,7 +2,7 @@
  * @Author: houxiaoling 
  * @Date: 2020-08-05 10:16:07 
  * @Last Modified by: houxiaoling
- * @Last Modified time: 2021-01-08 11:21:41
+ * @Last Modified time: 2021-01-26 15:26:55
  * @Description:文章相关请求
  */
 var express = require('express');
@@ -56,6 +56,13 @@ router.post('/deleteArtcleClassify', function (req, res, next) {
 router.post('/getArticleByFilter', function (req, res, next) {
     article.getArticleByFilter(req, res, next);
 });
+router.post('/updateArticleBackend', function (req, res, next) {
+    article.updateArticleBackend(req, res, next);
+});
+router.post('/updateArticle', function (req, res, next) {
+    article.updateArticle(req, res, next);
+});
+
 
 
 module.exports = router;

@@ -2,7 +2,7 @@
  * @Author: houxiaoling 
  * @Date: 2020-08-05 10:18:29 
  * @Last Modified by: houxiaoling
- * @Last Modified time: 2021-01-08 12:40:32
+ * @Last Modified time: 2021-01-26 15:28:18
  * @Description:文章相关请求 
  */
 
@@ -21,7 +21,8 @@ var sql = {
     queryByType: 'select * from article where type=?',
     queryAll: 'select * from article',
     insertArticle: 'insert into article(id, type, title , content, time) VALUES(?,?,?,?,?)',
-    updateArticle: 'update article set type=?, title=?, content=?, time=? where id=?',
+	updateArticleBackend: 'update article set type=?, title=?, content=?, time=? where id=?',
+    updateArticle: 'update article set `comment_count`=?, `like_count`=? where id=?',
     deleteArtcle: 'delete from article where FIND_IN_SET(id,?)',
     queryAllArticleClassify:'select * , false as isArticle from article_classify union select id, type, title, time, true as isArticle from article ',
     insertArticleClassify: 'insert into article_classify(father_id, name, time) VALUES(?,?,?)',
@@ -113,31 +114,6 @@ module.exports = {
               result = {
                 code: 200,
                 msg: '增加成功'
-              };
-            }
-            // 以json形式，把操作结果返回给前台页面
-            common.jsonWrite(res, result);
-            // 释放连接
-            connection.release();
-          });
-        });
-    },
-    updateArtcle: function (req, res, next) {
-        pool.getConnection(function (err, connection) {
-          if (err) {
-            logger.error(err);
-            return;
-          }
-          var param = JSON.parse(req.body.info)
-          var time = Date.getTime()
-          // 建立连接，向表中插入值
-          connection.query(sql.updateArticle, [param.type, param.title, param.content, time, param.id], function (err, result) {
-            if (err) {
-              logger.error(err);
-            } else {
-              result = {
-                code: 200,
-                msg: '更新成功'
               };
             }
             // 以json形式，把操作结果返回给前台页面
@@ -280,5 +256,54 @@ module.exports = {
                 connection.release();
             });
         });
-    },
+	},
+	updateArticleBackend: function (req, res, next) {
+        pool.getConnection(function (err, connection) {
+          if (err) {
+            logger.error(err);
+            return;
+          }
+          var param = JSON.parse(req.body.info)
+          var time = Date.getTime()
+          // 建立连接，向表中插入值
+          connection.query(sql.updateArticleBackend, [param.type, param.title, param.content, time, param.id], function (err, result) {
+            if (err) {
+              logger.error(err);
+            } else {
+              result = {
+                code: 200,
+                msg: '更新成功'
+              };
+            }
+            // 以json形式，把操作结果返回给前台页面
+            common.jsonWrite(res, result);
+            // 释放连接
+            connection.release();
+          });
+        });
+	},
+	updateArticle: function (req, res, next) {
+        pool.getConnection(function (err, connection) {
+          if (err) {
+            logger.error(err);
+            return;
+          }
+          var param = JSON.parse(req.body.info)
+          // 建立连接，向表中插入值
+          connection.query(sql.updateArticle, [param.comment_count, param.like_count, param.id], function (err, result) {
+            if (err) {
+              logger.error(err);
+            } else {
+              result = {
+                code: 200,
+                msg: '更新成功'
+              };
+            }
+            // 以json形式，把操作结果返回给前台页面
+            common.jsonWrite(res, result);
+            // 释放连接
+            connection.release();
+          });
+        });
+	},
 }
